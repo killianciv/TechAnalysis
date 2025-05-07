@@ -28,7 +28,13 @@ def plot_bollinger_bands(df, ticker):
     plt.grid(True)
     plt.show()
 
-# Example usage
-ticker = 'AAPL'
-df = get_bollinger_bands(ticker)
-plot_bollinger_bands(df, ticker)
+def main():
+    # Example usage
+    ticker = 'AAPL'
+    df = get_bollinger_bands(ticker)
+    plot_bollinger_bands(df, ticker)
+
+if __name__ == '__main__':
+    main()
+
+
