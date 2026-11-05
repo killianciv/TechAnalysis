@@ -17,7 +17,7 @@ __pycache__/
 **/*.csv
 # Add exceptions for the specific CSVs I do want to upload
 !data/dow30_tickers.csv
-!results/sp500_tickers.csv
+!data/sp500_tickers.csv
 
 # Ignore IDE files 
 *.idea/
