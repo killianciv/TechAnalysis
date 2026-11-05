@@ -1,4 +1,8 @@
-
+"""
+If you run bollinger_opportunity_analyzer with sorted_and_cleaned=False and you
+  want it sorted and cleaned, run this script using ```./.venv/bin/python data/cleaner_script.py```
+"""
+ 
 import pandas as pd
 
 input_file = "data/future_opportunities.csv"
