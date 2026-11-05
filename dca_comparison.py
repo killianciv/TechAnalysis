@@ -1,8 +1,8 @@
 """
-Does the signal help with DCA returns? 
-Ignores interest and dividends. 
-The aggregate returns of the watchlist are the equal-weighted values because 
-  we purchased an equal dollar amount of each stock ($100 per month). 
+Does the signal help with dollar-cost-averaging (DCA) returns? 
+This script ignores interest and dividends. 
+The average_total_return_of_watchlist IS IN FACT the equal-weighted return, 
+  because it purchased an equal dollar amount of each stock. 
 """
 
 

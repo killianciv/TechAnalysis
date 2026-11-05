@@ -1,23 +1,9 @@
 """
-Using Bollinger Bands to identify entry and exit opportunities  
-
-**** DETAILS
-A buying opportunity opens immediately after price has closed below the SMA for
-  the 30th consecutive CALENDAR day. The downloaded data only has info for 
-  trading days, so if the 30th calendar day is a Saturday or Sunday, the 
-  simulation will recommend that you execute the trade on Monday. 
-The first day price closes below the SMA is "day 1" of the slump, even if the 
-  stock was above the SMA for the majority of the trading day. 
-The simulation uses closing prices for its reommendations. If it recommends 
-  a trade on a certain day, it's because that day's closing price met some 
-  condition. Because a recommendation relies on days-end data, all recommended 
-  trades should be executed right before market close (~3:59 pm EST) on that day. 
-The 30th day of a slump is the first confirmed buying opportunity. If every day 
-  was a trading day and the slump began on May 1st @3:59pm, the first opportunity
-  to purchase is before the close (3:59 pm EST) on May 30th (29 days after day 1). 
-We purchase stock on the first available day because waiting even one extra day 
-  could result in loss of opportunity. There is only one purchase per slump. 
-If during a slump the price rises to the SMA, the opportunity is cancelled. 
+Using the Bollinger Band strategy to swing-trade a stock. 
+This script manages a portfolio of shares. It purchases a 100-share lot when an 
+  opportunity opens up, and it sells a share lot when it hits at least one of 
+  your tiered return requirements (Ex: 5% in a week, 10% in 30 days, 15% total). 
+It calculates the success of acting on these strategies. 
 
 **** EXIT OPPORTUNITIES
 These depend on your own criteria. 
@@ -29,21 +15,6 @@ You can use a tiered exit strategy, exiting a position when at least one of the
   - 60-day return exceeds 10% 
   - Total return exceeds 15%
 
-**** CODE NOTES
-- SMA20 = 20-day simple moving average of the prior 20 trading days' closing prices
-- STD20 = sigma = standard deviation of the prior 20 trading days' closing prices. It
-    is the standard deviation of price, not the standard deviation of returns. 
-- HW = half-width = 2 * STD20 = the distance between the SMA and a Bollinger Band 
-- CW = channel width = 2 * HW = the distance between Bollinger Bands 
-- The dataframe stores the SMA as "SMA20" to be precise, but I write "SMA" everywhere else 
-- All return/roi variables (unless suffixed with _as_percent) are decimals. 80% = 0.8 
-- Price "hits" a structure (SMA or a Bollinger Band) when price gets close to 
-    it (or exactly touches it). The equations use <= or >= 
-- Price "crosses" a structure if price completely moves from one side to the 
-    other. The equations use > or < 
-- Because "hit" margins are inclusive ("or equal to"), if the price is exactly on 
-    the SMA or a Bollinger Band, both its hit variables (top & bottom) will be True. 
-    
 **** QUESTIONS
 Band touches are good, but what do they count for? 
 - Does each band touch reduce the minimum slump period by one day? 

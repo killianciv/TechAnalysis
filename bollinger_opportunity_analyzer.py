@@ -1,33 +1,19 @@
 """
-Dad's Bollinger Band Opportunity Analyzer
+This file has two modes that you adjust using main()'s backtesting_mode variable 
 
-"Backtest" mode tests the success rate of the trading strategy by identifying
-  historical opportunities, then measuring what happened to the stock price 
-  afterward. For each company over a period of time, it calculates: 
+"Backtest" mode tests the historical success rate of the trading strategy by 
+  identifying historical opportunities, then measuring what happened to the 
+  stock price after each opportunity. For each company in the list, over the 
+  chosen period of time, it calculates: 
  - Total opportunities 
  - The percent of opportunities that achieve a 10, 15, or 20 percent return 
- - The AVERAGE time it took to reach a 10, 15, or 20 percent return
+ - The AVERAGE time it took SUCCEEDERS to reach a 10, 15, or 20 percent return
 
-"Future" mode identifies half-formed opportunities; it figures out which stocks 
-  are a slump and gives you a date to check up on the stock. 
+"Future" mode identifies half-formed opportunities so you can act in the future. It
+  figures out which stocks are currently in a slump, and for each stock in a slump, 
+  it tells you when its 30-day mark is, so you can check up on it. 
 
-**** DETAILS
-An "opportunity" is a record of a historical market signal. A buying opportunity 
-  opens immediately after price has closed completely below the SMA for the 30th 
-  consecutive CALENDAR day. If price touches the SMA, the counter is reset. 
-The simulation uses closing prices for its recommendations. If it recommends 
-  a trade on a certain day, it's because that day's closing price met some 
-  condition. Because a recommendation relies on days-end data, all recommended 
-  trades should be executed right before market close (~3:59 pm EST) on that day. 
-The first day price closes below the SMA is "day 1" of the slump, even if the 
-  stock was above the SMA for the majority of the trading day. 
-The 30th day of a slump is the first confirmed buying opportunity. If every day 
-  was a trading day and the slump began on May 1st @3:59pm, the first opportunity
-  to purchase is before the close (3:59 pm EST) on May 30th (29 days after day 1). 
-The downloaded data only has info for trading days, so if the 30th calendar 
-  day is a Saturday or Sunday, the opportunity will be on the Monday. 
-There is only one purchase per slump. We purchase stock on the first available 
-  day because waiting even one extra day could miss the opportunity. 
+**** SCRIPT-SPECIFIC DETAILS
 In backtest mode, an opportunity with under 90 days of follow-up is excluded  
   from the success-rate calculation, rather than being counted as a failure. 
 The opportunities.csv file is a hardcoded file path that it rewritten each time 
@@ -35,19 +21,6 @@ The opportunities.csv file is a hardcoded file path that it rewritten each time
   of it and move it into a folder named after the date of the final finished 
   candle it used. If you download the data in the middle of a trading day, the 
   code excludes today's candle, so use the date of the previous trading day. 
-
-**** CODE NOTES
-- SMA20 = 20-day simple moving average of the prior 20 trading days' closing prices
-- STD20 = sigma = standard deviation of the prior 20 trading days' closing prices. It
-    is the standard deviation of price, not the standard deviation of returns. 
-- HW = half-width = 2 * STD20 = the distance between the SMA and a Bollinger Band 
-- CW = channel width = 2 * HW = the distance between Bollinger Bands 
-- The dataframe stores the SMA as "SMA20" to be precise, but I write "SMA" everywhere else 
-- All return/roi variables (unless suffixed with _as_percent) are decimals. 80% = 0.8 
-- Price "hits" a structure (SMA or a Bollinger Band) when price gets close to 
-    it (or exactly touches it). The equations use <= or >= 
-- Price "crosses" a structure if price completely moves from one side to the 
-    other. The equations use > or < 
 """
 
 
