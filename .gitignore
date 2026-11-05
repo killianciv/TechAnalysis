@@ -8,11 +8,16 @@ __pycache__/
 # Ignore Jupyter notebook checkpoints
 .ipynb_checkpoints/
 
-# Ignore data/output files
-*.csv
+# Ignore these data/output files
 *.xlsx
 *.xls
 *.log
+
+# Ignore all CSV files everywhere in the project
+**/*.csv
+# Add exceptions for the specific CSVs I do want to upload
+!data/dow30_tickers.csv
+!results/sp500_tickers.csv
 
 # Ignore IDE files 
 *.idea/
