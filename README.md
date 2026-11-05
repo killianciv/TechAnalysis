@@ -20,6 +20,9 @@ source .venv/bin/activate
 Installing requirements:  
 ```bash
 pip install -r requirements.txt
+
+# If it is using the wrong pip installer, be more specific 
+./.venv/bin/python -m pip install -r requirements.txt
 ```
 
 To run: 
